@@ -17,9 +17,9 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11
 lines = text_data.strip().split('\n')
 
 scores = []
+copy_counts = [1]*len(lines)
 
-for y, line in enumerate(lines):
-    # split on : or |
+for i, line in enumerate(lines):
     str_list = re.split(r':|\|', line)
     winning = re.split(r'\s+', str_list[1].strip())
     numbers = re.split(r'\s+', str_list[2].strip())
@@ -29,5 +29,13 @@ for y, line in enumerate(lines):
             count += 1
     if count > 0:
         scores.append(2**(count - 1))
+    # Part 2
+    win_x = copy_counts[i]
+    for c in range(i+1, i+count+1):
+        if c >= len(copy_counts):
+            copy_counts.append(win_x)
+        else:
+            copy_counts[c] += win_x
 
 print(f"🎁 Total score: {sum(scores)}")
+print(f"🎁 Total copies: {sum(copy_counts)}")
