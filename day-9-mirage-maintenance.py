@@ -15,28 +15,33 @@ example = """
 # text_data = example
 
 lines = text_data.strip().split('\n')
-extrapolated = []
+extrapolated_1 = []
+extrapolated_2 = []
+
+
+def extrapolate(seqs, op=1):
+    for i, sq in enumerate(seqs):
+        if i == 0:
+            sq.append(0)
+        if i+1 == len(seqs):
+            return sq[-1]
+        next_last = seqs[i+1][-1]
+        seqs[i+1].append(next_last + (op*sq[-1]))
+
 
 for line in lines:
     seq = list(map(int, line.split()))
     seqs = [seq]
     while all(n == 0 for n in seqs[-1]) == False:
-        sq = seqs[-1]
         next_seq = []
-        for i in range(1, len(sq)):
-            next_seq.append(sq[i] - sq[i-1])
+        for i in range(1, len(seqs[-1])):
+            next_seq.append(seqs[-1][i] - seqs[-1][i-1])
         seqs.append(next_seq)
-    # Extrapolate!
     seqs.reverse()
-    for i, sq in enumerate(seqs):
-        if i == 0:
-            sq.append(0)
-        if i+1 == len(seqs):
-            extrapolated.append(sq[-1])
-            break
-        last = sq[-1]
-        next_sq = seqs[i+1]
-        next_last = next_sq[-1]
-        next_sq.append(next_last + last)
+    extrapolated_1.append(extrapolate(seqs))
+    # Part 2
+    rev_seqs = [s.reverse() for s in seqs]
+    extrapolated_2.append(extrapolate(seqs, -1))
 
-print(f"🎁 Part 1, sum: {sum(extrapolated)}")
+print(f"🎁 Part 1, sum: {sum(extrapolated_1)}")
+print(f"🎁 Part 2, sum: {sum(extrapolated_2)}")
