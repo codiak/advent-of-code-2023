@@ -1,8 +1,6 @@
-import re
-import functools
 import math
-import numpy as np
 from itertools import combinations
+
 from utils import fetchInput
 
 page = fetchInput("https://adventofcode.com/2023/day/11/input")
