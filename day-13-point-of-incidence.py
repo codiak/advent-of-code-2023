@@ -2,7 +2,6 @@ import re
 import numpy as np
 from numpy.typing import NDArray
 
-from itertools import combinations
 from utils import fetchInput
 
 page = fetchInput("https://adventofcode.com/2023/day/13/input")
