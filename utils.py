@@ -11,3 +11,8 @@ def fetchInput(url: str) -> Response:
     }
     page = requests.get(url, headers=headers)
     return page
+
+
+def loadInputFile(name: str) -> str:
+    with open(f"inputs/{name}", 'r') as f:
+        return f.read()
